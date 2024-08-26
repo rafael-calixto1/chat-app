@@ -102,11 +102,4 @@ public class User {
                 && Objects.equals(id, other.id) && Objects.equals(password, other.password)
                 && Objects.equals(profile_picture, other.profile_picture);
     }
-
-
-
-
-
-
-
 }
