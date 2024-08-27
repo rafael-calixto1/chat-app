@@ -1,6 +1,7 @@
 package com.dsenvolvendosistemas.chat_app.service;
-
+import com.dsenvolvendosistemas.chat_app.exception.UserException;
 import com.dsenvolvendosistemas.chat_app.modal.User;
+import com.dsenvolvendosistemas.chat_app.request.UpdateUserRequest;
 
 import java.util.List;
 
