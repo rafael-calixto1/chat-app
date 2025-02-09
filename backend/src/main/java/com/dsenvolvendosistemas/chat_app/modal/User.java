@@ -26,7 +26,6 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Notification> notifications=new ArrayList<>();
 
-
     public User() {
         // TODO Auto-generated constructor stub
     }
@@ -65,7 +64,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String getProfile_picture() {
         return profile_picture;
