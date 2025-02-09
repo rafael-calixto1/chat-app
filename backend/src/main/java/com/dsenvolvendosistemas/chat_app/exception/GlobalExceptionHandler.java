@@ -3,6 +3,7 @@ package com.dsenvolvendosistemas.chat_app.exception;
 import java.time.LocalDateTime;
 
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,7 +31,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<ErrorDetail>(err,HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetail> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException me){
 
