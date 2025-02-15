@@ -17,38 +17,48 @@ import java.util.Collections;
 
 @Configuration
 public class AppConfig {
+	
+	@Bean
+	public SecurityFilterChain securityAppConfig(HttpSecurity http) throws Exception {
+		
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and().authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
+            )
+		.addFilterBefore(new JwtValidatorFilter(), BasicAuthenticationFilter.class)
+		.csrf().disable().cors().configurationSource(new CorsConfigurationSource() {
+			
+			@Override
+			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+				
+				CorsConfiguration cfg = new CorsConfiguration();
+				
+				cfg.setAllowedOrigins(Arrays.asList(
+						
+						"http://localhost:3000", 
+						"http://localhost:4000"));
+				//cfg.setAllowedMethods(Arrays.asList("GET", "POST","DELETE","PUT"));
+				cfg.setAllowedMethods(Collections.singletonList("*"));
+				cfg.setAllowCredentials(true);
+				cfg.setAllowedHeaders(Collections.singletonList("*"));
+				cfg.setExposedHeaders(Arrays.asList("Authorization"));
+				cfg.setMaxAge(3600L);
+				return cfg;
+				
+			}
+		}).and()
+		.formLogin()
+		.and()
+		.httpBasic();
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		return http.build();
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeHttpRequests(authorize->authorize.requestMatchers("/api/**").authenticated()
-                        .anyRequest().permitAll()
-                ).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
-                .csrf().disable()
-                .cors().configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-
-                        CorsConfiguration cfg = new CorsConfiguration();
-                        cfg.setAllowedOrigins(Arrays.asList(
-                                "http:localhost:3000/"
-                        ));
-                        cfg.setAllowedMethods(Collections.singletonList("*"));
-                        cfg.setAllowCredentials((true));
-                        cfg.setAllowedHeaders(Collections.singletonList("*"));
-                        cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                        cfg.setMaxAge(3600L);
-
-                        return cfg;
-                    }
-                })
-                .and().formLogin().and().httpBasic();
-                return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
+
