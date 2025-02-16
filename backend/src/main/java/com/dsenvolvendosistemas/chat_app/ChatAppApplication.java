@@ -1,5 +1,6 @@
 package com.dsenvolvendosistemas.chat_app;
 
+
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ChatAppApplication {
 	public static void main(String[] args) {
-		// Carregar variáveis do arquivo .env
+		// .env
 		Dotenv dotenv = Dotenv.load();
 		System.setProperty("SERVER_PORT", dotenv.get("SERVER_PORT"));
 		System.setProperty("URL_DATABASE", dotenv.get("URL_DATABASE"));
@@ -16,7 +17,7 @@ public class ChatAppApplication {
 		System.setProperty("HIBERNATE_DDL_AUTO", dotenv.get("HIBERNATE_DDL_AUTO"));
 		System.setProperty("SHOW_SQL", dotenv.get("SHOW_SQL"));
 
-		// Iniciar a aplicação Spring Boot
+		// start app
 		SpringApplication.run(ChatAppApplication.class, args);
 	}
 }

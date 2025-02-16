@@ -1,15 +1,10 @@
 package com.dsenvolvendosistemas.chat_app.modal;
 
-import java.util.*;
+import jakarta.persistence.*;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
-import javax.management.Notification;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -23,8 +18,9 @@ public class User {
     private String profile_picture;
     private String password;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Notification> notifications=new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Notification> notifications = new ArrayList<>();
+
 
     public User() {
         // TODO Auto-generated constructor stub
@@ -40,43 +36,56 @@ public class User {
         this.password = password;
         this.notifications = notifications;
     }
+
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
+
     public String getFull_name() {
         return full_name;
     }
+
     public void setFull_name(String full_name) {
         this.full_name = full_name;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
+
     public String getProfile_picture() {
         return profile_picture;
     }
+
     public void setProfile_picture(String profile_picture) {
         this.profile_picture = profile_picture;
     }
+
     public List<Notification> getNotifications() {
         return notifications;
     }
+
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
     }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", full_name=" + full_name + ", email=" + email + ", notifications=" + notifications
@@ -87,6 +96,7 @@ public class User {
     public int hashCode() {
         return Objects.hash(email, full_name, id, password, profile_picture);
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
