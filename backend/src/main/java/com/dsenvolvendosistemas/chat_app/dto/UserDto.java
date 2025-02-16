@@ -72,8 +72,4 @@ public class UserDto {
         return Objects.equals(email, other.email) && Objects.equals(full_name, other.full_name)
                 && Objects.equals(id, other.id) && Objects.equals(profile_picture, other.profile_picture);
     }
-
-
-
-
 }

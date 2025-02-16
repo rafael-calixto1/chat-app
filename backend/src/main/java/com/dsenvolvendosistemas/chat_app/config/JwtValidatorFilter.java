@@ -19,33 +19,48 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.util.List;
 
-public class JwtTokenValidator extends OncePerRequestFilter {
+public class JwtValidatorFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String jwt=request.getHeader("Authorization");
 
-        if(jwt!=null){
+
+
+        String jwt =request.getHeader(SecurityConstant.HEADER);
+
+        System.out.println("validator jwt -------- "+jwt);
+
+        if(jwt != null) {
+
+
             try {
-                //Bearer token
+
                 jwt=jwt.substring(7);
 
-                SecretKey key= Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
-                Claims claim = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+                SecretKey key= Keys.hmacShaKeyFor(SecurityConstant.JWT_KEY.getBytes());
+
+                Claims claim= Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
                 String username=String.valueOf(claim.get("username"));
-                String authorities=String.valueOf(claim.get(("authorities")));
+                String authorities=String.valueOf(claim.get("authorities"));
 
                 List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
 
-                Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, auths);
+                Authentication auth=new UsernamePasswordAuthenticationToken(username, null,auths);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            } catch (Exception e){
-                throw new BadCredentialsException("Invalid token recieved...");
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            } catch (Exception e) {
+                System.out.println("invalid token recived...................");
+                throw new BadCredentialsException("invalid token");
+                // TODO: handle exception
             }
+
+
+
         }
         filterChain.doFilter(request, response);
+
+
     }
 }
