@@ -1,7 +1,0 @@
-package com.dsenvolvendosistemas.chat_app.config;
-
-public class JwtConstant {
-
-    public static final String JWT_HEADER="Authorization";
-    public static final String SECRET_KEY = System.getenv("JWT_CONSTANT");
-}
