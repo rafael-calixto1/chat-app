@@ -5,6 +5,7 @@ import com.dsenvolvendosistemas.chat_app.config.JwtTokenProvider;
 import com.dsenvolvendosistemas.chat_app.exception.UserException;
 import com.dsenvolvendosistemas.chat_app.modal.User;
 import com.dsenvolvendosistemas.chat_app.repository.UserRepository;
+import com.dsenvolvendosistemas.chat_app.request.LoginRequest;
 import com.dsenvolvendosistemas.chat_app.response.AuthResponse;
 import com.dsenvolvendosistemas.chat_app.service.CustomUserDetailsService;
 import jakarta.validation.Valid;
@@ -40,7 +41,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> createUserHandler(@Valid @RequestBody User user) throws UserException {
+    public ResponseEntity<AuthResponse> createUserHandler(@Valid @RequestBody User user) throws UserException{
 
         String email = user.getEmail();
         String password = user.getPassword();
@@ -77,12 +78,12 @@ public class AuthController {
         authResponse.setStatus(true);
         authResponse.setJwt(token);
 
-        return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
+        return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.OK);
 
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponse> signin(@RequestBody User loginRequest) {
+    public ResponseEntity<AuthResponse> signin(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 

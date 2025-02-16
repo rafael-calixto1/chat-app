@@ -67,8 +67,4 @@ public class MessageDto {
     public void setChat(ChatDto chat) {
         this.chat = chat;
     }
-
-
-
-
 }

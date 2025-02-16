@@ -1,4 +1,4 @@
-package com.dsenvolvendosistemas.chat_app.config;
+package com.dsenvolvendosistemas.chat_app.controller;
 
 import com.dsenvolvendosistemas.chat_app.exception.ChatException;
 import com.dsenvolvendosistemas.chat_app.exception.UserException;
@@ -73,7 +73,4 @@ public class RealTimeChat {
         }
         return user1;
     }
-
-
-
 }
