@@ -40,3 +40,8 @@ After completing these steps, your backend should be up and running.
 ### API Documentation
 To see routes of application click on [API_ROUTES](API_Routes_Documentation.md).
 
+Or with the application running, access the Swagger:
+http://HOST:PORT/swagger-ui/index.html#/
+
+Make sure to replace `HOST` and `PORT` with your actual server details.
+
